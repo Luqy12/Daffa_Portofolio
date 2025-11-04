@@ -1,0 +1,174 @@
+// ---
+const hamMenuBtn = document.querySelector('.header__main-ham-menu-cont')
+const smallMenu = document.querySelector('.header__sm-menu')
+const headerHamMenuBtn = document.querySelector('.header__main-ham-menu')
+const headerHamMenuCloseBtn = document.querySelector(
+  '.header__main-ham-menu-close'
+)
+const headerSmallMenuLinks = document.querySelectorAll('.header__sm-menu-link')
+
+hamMenuBtn.addEventListener('click', () => {
+  if (smallMenu.classList.contains('header__sm-menu--active')) {
+    smallMenu.classList.remove('header__sm-menu--active')
+  } else {
+    smallMenu.classList.add('header__sm-menu--active')
+  }
+  if (headerHamMenuBtn.classList.contains('d-none')) {
+    headerHamMenuBtn.classList.remove('d-none')
+    headerHamMenuCloseBtn.classList.add('d-none')
+  } else {
+    headerHamMenuBtn.classList.add('d-none')
+    headerHamMenuCloseBtn.classList.remove('d-none')
+  }
+})
+
+for (let i = 0; i < headerSmallMenuLinks.length; i++) {
+  headerSmallMenuLinks[i].addEventListener('click', () => {
+    smallMenu.classList.remove('header__sm-menu--active')
+    headerHamMenuBtn.classList.remove('d-none')
+    headerHamMenuCloseBtn.classList.add('d-none')
+  })
+}
+
+// ---
+const headerLogoConatiner = document.querySelector('.header__logo-container')
+
+headerLogoConatiner.addEventListener('click', () => {
+  location.href = 'index.html'
+})
+
+// Certificate popup functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const certificateItems = document.querySelectorAll('.certificate-item');
+  const popup = document.createElement('div');
+  popup.className = 'certificate-popup';
+  popup.innerHTML = `
+    <button class="close-btn">&times;</button>
+    <img src="" alt="Certificate" />
+  `;
+  document.body.appendChild(popup);
+
+  const popupImg = popup.querySelector('img');
+  const closeBtn = popup.querySelector('.close-btn');
+
+  certificateItems.forEach(item => {
+    item.addEventListener('click', function() {
+      const imgSrc = this.querySelector('.certificate-img').src;
+      popupImg.src = imgSrc;
+      popup.classList.add('show');
+    });
+  });
+
+  closeBtn.addEventListener('click', function() {
+    popup.classList.remove('show');
+  });
+
+  popup.addEventListener('click', function(e) {
+    if (e.target === popup) {
+      popup.classList.remove('show');
+    }
+  });
+});
+
+// Mouse movement effect on text
+document.addEventListener('mousemove', (e) => {
+  const texts = document.querySelectorAll('.heading-primary, .text-primary, .heading-sec__main, .heading-sec__sub, .about__content-details-para, .projects__row-content-title, .projects__row-content-desc');
+  texts.forEach(text => {
+    const rect = text.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+    text.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+});
+
+// Scroll animations with stagger
+document.addEventListener('DOMContentLoaded', function() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  let delay = 0;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('animate-in');
+        }, delay);
+        delay += 100; // Stagger delay
+      }
+    });
+  }, observerOptions);
+
+  // Observe elements for scroll animations
+  const animateElements = document.querySelectorAll('.heading-primary, .text-primary, .heading-sec__main, .heading-sec__sub, .about__content-details-para, .projects__row, .skills__skill, .certificate-item');
+  animateElements.forEach(el => {
+    observer.observe(el);
+  });
+});
+
+// Parallax effect for background
+document.addEventListener('scroll', function() {
+  const scrolled = window.pageYOffset;
+  const hero = document.querySelector('.home-hero');
+  if (hero) {
+    hero.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+  }
+});
+
+// Click animations for interactive elements
+document.addEventListener('DOMContentLoaded', function() {
+  const clickableElements = document.querySelectorAll('.btn, .certificate-item, .projects__row-img-cont');
+  clickableElements.forEach(el => {
+    el.addEventListener('click', function() {
+      this.style.transform = 'scale(0.95) rotate(2deg)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1) rotate(0deg)';
+      }, 200);
+    });
+  });
+});
+
+// Button click transition effect
+document.addEventListener('DOMContentLoaded', function() {
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach(button => {
+    button.addEventListener('click', function() {
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1)';
+      }, 150);
+    });
+  });
+});
+
+// EmailJS contact form
+document.addEventListener('DOMContentLoaded', function() {
+  emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
+
+  const contactForm = document.getElementById('contact-form');
+  contactForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Prepare template parameters
+    const templateParams = {
+      from_name: this.name.value,
+      from_email: this.email.value,
+      message: this.message.value,
+      to_email: 'luqydaffa32@gmail.com'
+    };
+
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+      .then(function() {
+        alert('Message sent successfully!');
+        contactForm.reset();
+      }, function(error) {
+        alert('Failed to send message. Please try again.');
+        console.error('EmailJS error:', error);
+      });
+  });
+});
