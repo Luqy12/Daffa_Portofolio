@@ -49,7 +49,7 @@
     display: block;
     padding: 1.2rem;
     border-bottom: 2px solid #eee;
-    transition: background .3s;
+    transition: background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     &:hover {
       background: rgba(#fff,.1);
@@ -114,6 +114,7 @@
       max-width: 60rem;
       line-height: 1.7;
       margin-bottom: 1rem;
+      text-align: justify;
       &--hl {
         font-weight: 700;
         margin: 0 3px;
@@ -131,7 +132,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       object-fit: cover;
       object-position: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -211,7 +212,7 @@
   .certificate-item {
     text-align: center;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     &:hover {
       transform: scale(1.05);
@@ -237,12 +238,14 @@
 .animate-in {
   opacity: 0;
   transform: translateY(50px) scale(0.95);
-  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: blur(10px);
+  transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .animate-in.animate-in {
   opacity: 1;
   transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 .certificate-popup {
@@ -285,7 +288,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s;
+      transition: background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
       &:hover {
         background: #555;
@@ -299,6 +302,43 @@
       margin: 0 auto;
     }
   }
+}
+
+.ui-ux-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+
+  .ui-ux-item {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    .ui-ux-img {
+      width: 100%;
+      max-width: 25rem;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.6rem;
+      color: $subTextColorLight;
+      font-weight: 600;
+    }
+  }
+}
+
+.project-details__pdf-link {
+  margin-top: 3rem;
+  text-align: center;
 }
 
 .contact {

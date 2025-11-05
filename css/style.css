@@ -188,6 +188,7 @@ textarea {
 }
 .btn:hover {
   transform: translateY(-3px);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .btn--bg {
   padding: 1.5rem 8rem;
@@ -281,7 +282,7 @@ textarea {
   display: block;
   padding: 1.2rem;
   border-bottom: 2px solid #eee;
-  transition: background 0.3s;
+  transition: background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .home-hero__social-icon-link:hover {
   background: rgba(255, 255, 255, 0.1);
@@ -347,6 +348,7 @@ textarea {
   max-width: 60rem;
   line-height: 1.7;
   margin-bottom: 1rem;
+  text-align: justify;
 }
 .about__content-details-para--hl {
   font-weight: 700;
@@ -354,6 +356,37 @@ textarea {
 }
 .about__content-details-para:last-child {
   margin-bottom: 4rem;
+}
+
+.project-details__gallery {
+  margin-top: 2rem;
+}
+
+.project-details__gallery h4 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--color-primary);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.gallery-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 .about__content-photo {
   width: 100%;
@@ -364,7 +397,7 @@ textarea {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   object-fit: cover;
   object-position: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .about__content-photo:hover {
   transform: scale(1.1);
@@ -444,7 +477,7 @@ textarea {
 .certificates-gallery .certificate-item {
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .certificates-gallery .certificate-item:hover {
   transform: scale(1.05);
@@ -466,12 +499,14 @@ textarea {
 .animate-in {
   opacity: 0;
   transform: translateY(50px) scale(0.95);
-  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: blur(10px);
+  transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .animate-in.animate-in {
   opacity: 1;
   transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 .certificate-popup {
@@ -513,7 +548,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s;
+  transition: background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .certificate-popup .certificate-popup-content .close-btn:hover {
   background: #555;
@@ -523,6 +558,39 @@ textarea {
   max-height: 80vh;
   display: block;
   margin: 0 auto;
+}
+
+.ui-ux-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.ui-ux-gallery .ui-ux-item {
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.ui-ux-gallery .ui-ux-item:hover {
+  transform: scale(1.05);
+}
+.ui-ux-gallery .ui-ux-item .ui-ux-img {
+  width: 100%;
+  max-width: 25rem;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+.ui-ux-gallery .ui-ux-item p {
+  font-size: 1.6rem;
+  color: #777;
+  font-weight: 600;
+}
+
+.project-details__pdf-link {
+  margin-top: 3rem;
+  text-align: center;
 }
 
 .contact {
@@ -689,7 +757,9 @@ textarea {
   margin-bottom: 6rem;
 }
 .project-details__showcase-img {
-  width: 100%;
+  width: 80%;
+  display: block;
+  margin: 0 auto;
 }
 .project-details__content-main {
   width: 100%;
@@ -768,7 +838,7 @@ textarea {
   align-items: center;
   cursor: pointer;
   color: #333;
-  transition: color 0.3s;
+  transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .header__logo-container:hover {
   color: #8b5cf6;
@@ -817,7 +887,7 @@ textarea {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
-  transition: color 0.3s;
+  transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .header__link:hover {
   color: #8b5cf6;
@@ -851,7 +921,7 @@ textarea {
   top: 100%;
   visibility: hidden;
   opacity: 0;
-  transition: all 0.3s;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
@@ -877,7 +947,7 @@ textarea {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  transition: color 0.3s;
+  transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .header__sm-menu-link a:hover {
   color: #8b5cf6;

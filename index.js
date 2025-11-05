@@ -85,7 +85,7 @@ document.addEventListener('mousemove', (e) => {
   });
 });
 
-// Scroll animations with stagger
+// Scroll animations with stagger and fade-in effect, triggered only on slow scrolling
 document.addEventListener('DOMContentLoaded', function() {
   const observerOptions = {
     threshold: 0.1,
@@ -93,13 +93,28 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   let delay = 0;
+  let lastScrollTop = 0;
+  let scrollSpeed = 0;
+  let lastScrollTime = Date.now();
+
+  // Detect scroll speed
+  window.addEventListener('scroll', function() {
+    const currentScrollTop = window.pageYOffset;
+    const currentTime = Date.now();
+    const timeDiff = currentTime - lastScrollTime;
+    const scrollDiff = Math.abs(currentScrollTop - lastScrollTop);
+    scrollSpeed = scrollDiff / timeDiff; // pixels per millisecond
+    lastScrollTop = currentScrollTop;
+    lastScrollTime = currentTime;
+  });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && scrollSpeed < 0.5) { // Trigger only if scrolling slowly (less than 0.5 px/ms)
         setTimeout(() => {
           entry.target.classList.add('animate-in');
         }, delay);
-        delay += 100; // Stagger delay
+        delay += 200; // Further increased stagger delay for premium feel
       }
     });
   }, observerOptions);
@@ -146,29 +161,58 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// EmailJS contact form
+// Gmail integration for contact form
 document.addEventListener('DOMContentLoaded', function() {
-  emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
-
   const contactForm = document.getElementById('contact-form');
   contactForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Prepare template parameters
-    const templateParams = {
-      from_name: this.name.value,
-      from_email: this.email.value,
-      message: this.message.value,
-      to_email: 'luqydaffa32@gmail.com'
-    };
+    const name = this.name.value;
+    const email = this.email.value;
+    const message = this.message.value;
 
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-      .then(function() {
-        alert('Message sent successfully!');
-        contactForm.reset();
-      }, function(error) {
-        alert('Failed to send message. Please try again.');
-        console.error('EmailJS error:', error);
-      });
+    // Create professional email template
+    const currentDate = new Date().toLocaleDateString('id-ID', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    const subject = encodeURIComponent(`Portfolio Contact - ${name} (${currentDate})`);
+
+    const professionalBody = `Dear Daffa Luqyana Ryanaf,
+
+I hope this email finds you well. I am reaching out to you through your portfolio website.
+
+**Contact Information:**
+• Name: ${name}
+• Email: ${email}
+• Date: ${currentDate}
+
+**Message:**
+${message}
+
+I look forward to hearing from you and discussing potential opportunities for collaboration.
+
+Best regards,
+${name}
+${email}
+
+---
+This message was sent from your portfolio contact form.`;
+
+    const body = encodeURIComponent(professionalBody);
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=luqydaffa32@gmail.com&su=${subject}&body=${body}`;
+
+    // Open Gmail in new tab
+    window.open(gmailUrl, '_blank');
+
+    // Reset form
+    contactForm.reset();
+
+    // Show success message
+    alert('Gmail compose window opened with professional template! Please review and send the email.');
   });
 });
