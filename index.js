@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Gmail integration for contact form
+// Gmail integration for contact form with Gmail-like template
 document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.getElementById('contact-form');
   contactForm.addEventListener('submit', function(event) {
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const email = this.email.value;
     const message = this.message.value;
 
-    // Create professional email template
+    // Create Gmail-like email template with proper formatting
     const currentDate = new Date().toLocaleDateString('id-ID', {
       year: 'numeric',
       month: 'long',
@@ -182,16 +182,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const subject = encodeURIComponent(`Portfolio Contact - ${name} (${currentDate})`);
 
-    const professionalBody = `Dear Daffa Luqyana Ryanaf,
+    // Gmail-style email template with proper line breaks and formatting
+    const gmailBody = `Dear Daffa Luqyana Ryanaf,
 
 I hope this email finds you well. I am reaching out to you through your portfolio website.
 
-**Contact Information:**
+Contact Information:
 • Name: ${name}
 • Email: ${email}
 • Date: ${currentDate}
 
-**Message:**
+Message:
 ${message}
 
 I look forward to hearing from you and discussing potential opportunities for collaboration.
@@ -201,9 +202,9 @@ ${name}
 ${email}
 
 ---
-This message was sent from your portfolio contact form.`;
+This message was sent from your portfolio contact form at daffaportofolio.com`;
 
-    const body = encodeURIComponent(professionalBody);
+    const body = encodeURIComponent(gmailBody);
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=luqydaffa32@gmail.com&su=${subject}&body=${body}`;
 
     // Open Gmail in new tab
@@ -212,7 +213,7 @@ This message was sent from your portfolio contact form.`;
     // Reset form
     contactForm.reset();
 
-    // Show success message
-    alert('Gmail compose window opened with professional template! Please review and send the email.');
+    // Show success message with Gmail branding
+    alert('✉️ Gmail compose window opened with professional template!\n\nPlease review the email in Gmail and click "Send" to deliver it.');
   });
 });
